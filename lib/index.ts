@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { program } from 'commander'
 import path from 'path'
 import fs from 'fs'
@@ -58,7 +56,5 @@ var exists = function (src: string, dst: string, callback: Function) {
     })
   }
 }
-
-exists('../from', '../to', copy)
 
 program.parse(process.argv)
