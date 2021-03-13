@@ -1,0 +1,32 @@
+{
+  "name": "vvix",
+  "version": "0.1.11",
+  "description": "a lite vue-like reactive jsx framework",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": {
+    "vvix": "./lib/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "JSerFeng",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSerFeng/vvix"
+  },
+  "keywords": [
+    "typescript",
+    "react-like",
+    "vue-like"
+  ],
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.34",
+    "commander": "^7.1.0",
+    "shelljs": "^0.8.4"
+  },
+  "dependencies": {}
+}
