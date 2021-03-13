@@ -1,5 +1,5 @@
 {
-  "name": "vvix",
+  "name": "vvix-cli",
   "version": "0.1.11",
   "description": "a lite vue-like reactive jsx framework",
   "main": "./lib/index.js",
