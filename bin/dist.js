@@ -1,4 +1,4 @@
-#!/usr/bin/env node ts
+#!/usr/bin/env node
 'use strict';
 
 var events = require('events');
@@ -2304,47 +2304,88 @@ commander_1
 var init = function (projectName) { return __awaiter(void 0, void 0, void 0, function () {
     var tplDir, projectDir;
     return __generator(this, function (_a) {
-        tplDir = path__default['default'].resolve(__dirname, './tpl');
-        projectDir = path__default['default'].resolve(process.cwd(), projectName);
-        exists(tplDir, projectDir, copy);
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                tplDir = path__default['default'].resolve(__dirname, './tpl');
+                projectDir = path__default['default'].resolve(process.cwd(), projectName);
+                console.info("creating the app into " + projectDir);
+                return [4 /*yield*/, exists(tplDir, projectDir, copy)];
+            case 1:
+                _a.sent();
+                console.info("cd " + projectName + "\nyarn&npm install");
+                return [2 /*return*/];
+        }
     });
 }); };
 var stat = fs__default['default'].stat;
 var copy = function (src, dst) {
-    //读取目录
-    fs__default['default'].readdir(src, function (err, paths) {
-        if (err) {
-            throw err;
-        }
-        paths.forEach(function (path) {
-            var _src = src + '/' + path;
-            var _dst = dst + '/' + path;
-            var readable;
-            var writable;
-            stat(_src, function (err, st) {
-                if (err) {
-                    throw err;
-                }
-                if (st.isFile()) {
-                    readable = fs__default['default'].createReadStream(_src); //创建读取流
-                    writable = fs__default['default'].createWriteStream(_dst); //创建写入流
-                    readable.pipe(writable);
-                }
-                else if (st.isDirectory()) {
-                    exists(_src, _dst, copy);
-                }
-            });
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            //读取目录
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    fs__default['default'].readdir(src, function (err, paths) {
+                        if (err) {
+                            reject(err);
+                            throw err;
+                        }
+                        paths.forEach(function (path) {
+                            var _src = src + '/' + path;
+                            var _dst = dst + '/' + path;
+                            var readable;
+                            var writable;
+                            stat(_src, function (err, st) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                if (err) {
+                                                    reject(err);
+                                                    throw err;
+                                                }
+                                                if (!st.isFile()) return [3 /*break*/, 1];
+                                                readable = fs__default['default'].createReadStream(_src); //创建读取流
+                                                writable = fs__default['default'].createWriteStream(_dst); //创建写入流
+                                                readable.pipe(writable);
+                                                writable.on('finish', resolve);
+                                                return [3 /*break*/, 3];
+                                            case 1:
+                                                if (!st.isDirectory()) return [3 /*break*/, 3];
+                                                return [4 /*yield*/, exists(_src, _dst, copy)];
+                                            case 2:
+                                                _a.sent();
+                                                resolve(undefined);
+                                                _a.label = 3;
+                                            case 3: return [2 /*return*/];
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    });
+                })];
         });
     });
 };
 var exists = function (src, dst, callback) {
-    //测试某个路径下文件是否存在
-    if (fs__default['default'].existsSync(src)) {
-        callback(src, dst);
-        fs__default['default'].mkdir(dst, function () {
+    return new Promise(function (resolve) {
+        //测试某个路径下文件是否存在
+        if (fs__default['default'].existsSync(src)) {
             callback(src, dst);
-        });
-    }
+            fs__default['default'].mkdir(dst, function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: //创建目录
+                            return [4 /*yield*/, callback(src, dst)];
+                            case 1:
+                                _a.sent();
+                                resolve(undefined);
+                                return [2 /*return*/];
+                        }
+                    });
+                });
+            });
+        }
+    });
 };
 commander_1.parse(process.argv);
