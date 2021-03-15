@@ -1,6 +1,6 @@
 {
   "name": "vvix-cli",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "a lite vue-like reactive jsx framework",
   "main": "./bin/dist.js",
   "types": "./bin/index.d.ts",
